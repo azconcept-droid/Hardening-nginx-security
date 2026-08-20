@@ -19,11 +19,9 @@ services:
       - MODSEC_RULE_ENGINE=On # DetectionOnly  # it'll log the violation but still pass the request through
       - MODSEC_AUDIT_ENGINE=RelevantOnly
       - MODSEC_AUDIT_LOG_FORMAT=JSON
-      - MODSEC_AUDIT_LOG=/var/log/modsecurity/audit/audit.log
       - MODSEC_REQ_BODY_ACCESS=On
       - MODSEC_RESP_BODY_ACCESS=Off
     volumes:
-      - ./modsec-logs:/var/log/modsecurity/audit
       - ./custom-rules/modsecurity-override.conf:/etc/modsecurity.d/owasp-crs/rules/REQUEST-900-METHOD-POLICY.conf
     depends_on:
       - api
