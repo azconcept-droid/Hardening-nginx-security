@@ -12,11 +12,11 @@ services:
       - "8080:8080"
     environment:
       - BACKEND=http://api:8000
-      - PARANOIA=1
+      - PARANOIA=3
       - ANOMALY_INBOUND=5
       - ANOMALY_OUTBOUND=4
       - BLOCKING_PARANOIA=1
-      - MODSEC_RULE_ENGINE=DetectionOnly  # it'll log the violation but still pass the request through
+      - MODSEC_RULE_ENGINE=On # DetectionOnly  # it'll log the violation but still pass the request through
       - MODSEC_AUDIT_ENGINE=RelevantOnly
       - MODSEC_AUDIT_LOG_FORMAT=JSON
       - MODSEC_AUDIT_LOG=/var/log/modsecurity/audit/audit.log
@@ -24,7 +24,7 @@ services:
       - MODSEC_RESP_BODY_ACCESS=Off
     volumes:
       - ./modsec-logs:/var/log/modsecurity/audit
-      - ./custom-rules:/etc/modsecurity.d/owasp-crs/rules/custom
+      - ./custom-rules/modsecurity-override.conf:/etc/modsecurity.d/owasp-crs/rules/REQUEST-900-METHOD-POLICY.conf
     depends_on:
       - api
     networks:
